@@ -1,6 +1,27 @@
 <?php
 include 'protect.php';
 require 'connect.php';
+
+if (isset($_POST["customer_id"]))
+{
+    //save the purchase
+    //clear our cart
+    //redirect to the sales page
+    $user_id = $_SESSION["id"];
+    $customer_id = $_POST["customer_id"];
+    $product_ids = array_unique($_SESSION["products"]); //[2,1,7,4]
+    $date_sold = date("Y-m-d");
+    $price = 50;
+    foreach ($product_ids as $pid){
+        $sql = "INSERT INTO `sales`(`id`, `user_id`, `product_id`, `customer_id`, `date_sold`, `price`)
+                            VALUES (null, $user_id, $pid, $customer_id, '$date_sold', $price)";
+        //die($sql);
+        mysqli_query($con, $sql) or die(mysqli_error($con));
+    }
+    $_SESSION["products"]= [];//clear cart
+    header("location:sales.php"); //go tpo sales page
+}
+
 $ids = array_unique($_SESSION["products"]);//[1,2,3]  == 1,2,3
 $string = implode("," , $ids);
 $sql = "SELECT * FROM products WHERE id IN($string)";
