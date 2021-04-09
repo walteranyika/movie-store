@@ -6,6 +6,13 @@ $string = implode("," , $ids);
 $sql = "SELECT * FROM products WHERE id IN($string)";
 $result = mysqli_query($con, $sql) or die(mysqli_error($con));// executing the query
 $rows = mysqli_fetch_all($result, 1);//assoc array
+
+//get the customers
+$sql2 = "SELECT * FROM customers";
+$result2 = mysqli_query($con, $sql2) or die(mysqli_error($con));// executing the query
+$customers = mysqli_fetch_all($result2, 1);//assoc array
+
+
 mysqli_close($con);//close the connection
 
 if (isset($_GET["id"]))
@@ -34,6 +41,15 @@ if (isset($_GET["id"]))
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-10">
+
+            <form action="checkout.php" method="post" class="form-inline mt-2 mb-2 shadow-sm">
+                <select name="customer_id"  class="form-control">
+                    <?php foreach ($customers as $person): ?>
+                        <option value="<?=$person["id"]?>">  <?=$person["names"]?> </option>
+                    <?php endforeach; ?>
+                </select>
+                <button class="btn btn-dark">Complete Transaction</button>
+            </form>
 
             <table id="example" class="table table-striped table-bordered">
 

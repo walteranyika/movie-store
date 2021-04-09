@@ -25,13 +25,14 @@ mysqli_close($con);//close the connection
     <div class="row justify-content-center">
         <div class="col-sm-10">
             <?php
-//                $movie_count = count($_SESSION["products"]);
-                  $movie_count = count( array_unique($_SESSION["products"]) );
+            //                $movie_count = count($_SESSION["products"]);
+            if (isset($_SESSION["products"]))
+                $movie_count = count(array_unique($_SESSION["products"]));
             ?>
 
             <div class="row border mt-2 mb-2 p-2">
                 <div class="col-6 m-auto text-center">
-                    You have <?= $movie_count ?> movies in the cart.
+                    You have <?= $movie_count ?? 0 ?> movies in the cart.
                 </div>
                 <div class="col-6 text-center">
                     <a href="checkout.php" class="btn btn-success btn-sm">Checkout</a>
