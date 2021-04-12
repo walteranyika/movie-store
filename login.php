@@ -24,6 +24,8 @@ if ( isset($_REQUEST["password"]) )
            session_start();
            $_SESSION["names"] = $user["names"];//123456
            $_SESSION["id"] = $user["id"];
+           $_SESSION["admin"] = $user["admin"];
+
            $_SESSION["logged_in"] = true;
            header("location:add-product.php");
            //success

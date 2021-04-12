@@ -1,5 +1,6 @@
 <?php
 include 'protect.php';
+include 'protect-admins.php';
 
 if ( isset($_REQUEST["password"]) )
 {
